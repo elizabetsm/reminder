@@ -1,0 +1,6 @@
+telegram/ru/boot/handler/CallbackQueryHandler.class
+telegram/ru/boot/handler/MessageHandler.class
+telegram/ru/boot/config/SpringConfig.class
+telegram/ru/boot/controller/WebhookController.class
+telegram/ru/boot/bot/SmokeBot.class
+telegram/ru/boot/Application.class
