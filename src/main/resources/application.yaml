@@ -1,9 +1,0 @@
-telegram:
-  bot:
-    webhook: https://8e20-195-133-239-83.eu.ngrok.io
-    name: "@petPRJbot"
-    token: 5527146485:AAGtRZMNo2_U9YKEPXmM6loB3z2gHV5c-tw
-#  server:
-#    port: 8080
-
-#  https://api.telegram.org/bot5527146485:AAGtRZMNo2_U9YKEPXmM6loB3z2gHV5c-tw/setWebhook?url=<URL, полученный от ngrok>
