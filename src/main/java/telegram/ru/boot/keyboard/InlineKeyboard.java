@@ -18,22 +18,20 @@ public class InlineKeyboard {
 
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
 
-        rowList.add(getOneButton("inline 1"));
-        rowList.add(getOneButton("inline 2"));
-        rowList.add(getOneButton("inline 3"));
+        rowList.add(getOneButton("да", "y"));
+        rowList.add(getOneButton("нет", "n"));
 
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         inlineKeyboardMarkup.setKeyboard(rowList);
-//
+
         return inlineKeyboardMarkup;
     }
 
-
-    List<InlineKeyboardButton> getOneButton(String text) {
+    List<InlineKeyboardButton> getOneButton(String text, String callbackText) {
         List<InlineKeyboardButton> one = new ArrayList<>();
         InlineKeyboardButton button = new InlineKeyboardButton();
         button.setText(text);
-        button.setCallbackData("You pressed button with text " + text);
+        button.setCallbackData(callbackText);
         one.add(button);
         return one;
     }

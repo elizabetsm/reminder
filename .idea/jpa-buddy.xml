@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpaBuddyIdeaProjectConfig">
+    <option name="defaultUnitInitialized" value="true" />
+    <option name="reverseEngineeringLastDbConnectionId" value="c0792622-2de9-455a-bac9-a692be3311a5" />
+    <option name="reLastEntityCreationPackage" value="src/main/java/telegram/ru/boot/entity" />
+    <option name="newEntityIdStrategy" />
+  </component>
+</project>

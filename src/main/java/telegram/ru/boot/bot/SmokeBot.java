@@ -1,7 +1,6 @@
 package telegram.ru.boot.bot;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
@@ -16,8 +15,6 @@ import telegram.ru.boot.config.SpringConfig;
 import telegram.ru.boot.handler.CallbackQueryHandler;
 import telegram.ru.boot.handler.Handler;
 import telegram.ru.boot.handler.MessageHandler;
-
-import java.io.IOException;
 
 /**
  * класс для использования в {@link SpringConfig#springWebhookBot(SetWebhook, MessageHandler, CallbackQueryHandler)}

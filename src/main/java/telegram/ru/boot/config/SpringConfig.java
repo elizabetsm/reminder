@@ -13,6 +13,7 @@ import telegram.ru.boot.bot.SmokeBot;
 import telegram.ru.boot.handler.CallbackQueryHandler;
 import telegram.ru.boot.handler.MessageHandler;
 
+
 @Configuration
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SpringConfig {
@@ -42,4 +43,5 @@ public class SpringConfig {
 
         return bot;
     }
+
 }

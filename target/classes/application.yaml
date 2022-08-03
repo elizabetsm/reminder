@@ -1,8 +1,20 @@
 telegram:
   bot:
-    webhook: https://8e20-195-133-239-83.eu.ngrok.io
+    webhook: https://8009-89-106-170-30.eu.ngrok.io
     name: "@petPRJbot"
     token: 5527146485:AAGtRZMNo2_U9YKEPXmM6loB3z2gHV5c-tw
+spring:
+#  main:
+#    allow-bean-definition-overriding: true
+  datasource:
+    hikari:
+      username: java
+      password: pass
+      jdbc-url: jdbc:postgresql://localhost:5432/reminder
+    url: jdbc:postgresql://localhost:5432/reminder
+  jpa:
+    hibernate:
+      ddl-auto: create
 #  server:
 #    port: 8080
 

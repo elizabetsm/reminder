@@ -13,7 +13,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="petPRJbot" options="-parameters --add-exports java.desktop/sun.swing=ALL-UNNAMED" />
+      <module name="petPRJbot" options="-parameters" />
     </option>
   </component>
 </project>

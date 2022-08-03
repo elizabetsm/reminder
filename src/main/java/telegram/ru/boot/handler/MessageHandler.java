@@ -8,8 +8,13 @@ import org.telegram.telegrambots.meta.api.interfaces.BotApiObject;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
+import telegram.ru.boot.entity.Birthday;
 import telegram.ru.boot.keyboard.InlineKeyboard;
 import telegram.ru.boot.keyboard.ReplyKeyboard;
+import telegram.ru.boot.repository.BirthdayRepo;
+
+import java.util.regex.Pattern;
 
 /**
  * Класс обработчик для всех текстовых сообщений
@@ -23,12 +28,15 @@ public class MessageHandler implements Handler {
 
     final ReplyKeyboard replyKeyboard;
     final InlineKeyboard inlineKeyboard;
+    final Pattern pattern;
+    final BirthdayRepo repository;
 
-    public MessageHandler(ReplyKeyboard replyKeyboard, InlineKeyboard inlineKeyboard) {
+    public MessageHandler(ReplyKeyboard replyKeyboard, InlineKeyboard inlineKeyboard, BirthdayRepo repository){
         this.replyKeyboard = replyKeyboard;
         this.inlineKeyboard = inlineKeyboard;
+        this.repository = repository;
+        this.pattern = Pattern.compile("\\d\\d.\\d\\d\\s\\w+");
     }
-
 
     @Override
     public BotApiMethod<?> handle(BotApiObject message) {
@@ -37,12 +45,23 @@ public class MessageHandler implements Handler {
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(msg.getChatId().toString());
             if (msg.getText().equals("/start")) {
-                sendMessage.setText("Софа , привет!!\n Пожалуйста, тыкни на кнопку и скажи боту, что ты бы хотела сделать");
+                sendMessage.setText("Софа , привет!!\nПожалуйста, тыкни на кнопку и скажи боту, что ты бы хотела сделать");
                 sendMessage.setReplyMarkup(replyKeyboard.getKeyboard());
             } else if (msg.getText().equals("Добавить день рождения")){
-                sendMessage.setText("Пж введи дату в формате MM-DD\n это важно !!!");
-            } else if (){
-                //TODO сделать парсер по формату на дату и время чтобы отловить все даты
+                sendMessage.setText("Пж введи дату в формате MM-DD Фамилия и имя\nили имя фамилия\nили имя\n это важно !!!");
+                sendMessage.setReplyMarkup(new ReplyKeyboardRemove(true));
+            } else if (msg.getText().equals("Показать все дени рождения")){
+                sendMessage.setText(repository.findAll().toString());
+//                sendMessage.setReplyMarkup(new ReplyKeyboardRemove(true));
+            } else if (pattern.matcher(msg.getText()).matches()){
+                String[] str = msg.getText().split(" ");
+                repository.save(new Birthday(str[0], str[1]));
+                sendMessage.setText("Проверь пж, все ли верно:\n"+ msg.getText());
+                sendMessage.setReplyMarkup(new ReplyKeyboardRemove(true));
+                sendMessage.setReplyMarkup(inlineKeyboard.getKeyboard());
+            } else if (msg.getText().equals("да")) {
+                sendMessage.setText("Супер, Др добавлен, напомню тебе о нем за неделю до и в день др\nчто то еще?");
+                sendMessage.setReplyMarkup(replyKeyboard.getKeyboard());
             }
             return sendMessage;
         }

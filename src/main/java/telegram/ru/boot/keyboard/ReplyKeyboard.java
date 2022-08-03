@@ -16,18 +16,16 @@ public class ReplyKeyboard {
         // формируем клаву построчно
         KeyboardRow row1 = new KeyboardRow();
         row1.add(new KeyboardButton("Добавить день рождения"));
-//        row1.add(new KeyboardButton("cheto 2"));
-//        row1.add(new KeyboardButton("cheto 3"));
-//
-//        KeyboardRow row2 = new KeyboardRow();
-//        row2.add(new KeyboardButton("cheto 4"));
-//        row2.add(new KeyboardButton("cheto 5"));
-//        row2.add(new KeyboardButton("cheto 6"));
+        KeyboardRow row2 = new KeyboardRow();
+        row2.add(new KeyboardButton("Удалить день рождения"));
+        KeyboardRow row3 = new KeyboardRow();
+        row2.add(new KeyboardButton("Показать все дени рождения"));
 
         // Объединяем строки клавиатуры в однин массив
         List<KeyboardRow> keyboardRows = new ArrayList<>();
         keyboardRows.add(row1);
-//        keyboardRows.add(row2);
+        keyboardRows.add(row2);
+        keyboardRows.add(row3);
 
         // Создаем объект клавиатуры из массива и дополнительно настраиваем, если надо
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
