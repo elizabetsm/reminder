@@ -6,8 +6,5 @@ import telegram.ru.boot.entity.Birthday;
 
 @Repository
 public interface BirthdayRepo extends JpaRepository<Birthday, Integer> {
-//    List<BirthdaysEntity>
-
-//    @Override
-//    List<BirthdaysEntity> findAll();
+    void deleteBirthdayByName(String name);
 }

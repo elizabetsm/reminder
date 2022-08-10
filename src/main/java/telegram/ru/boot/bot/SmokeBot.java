@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updates.SetWebhook;
@@ -22,6 +24,7 @@ import telegram.ru.boot.handler.MessageHandler;
 @Setter
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Slf4j
 public class SmokeBot extends SpringWebhookBot {
 
     String webhook;
@@ -59,6 +62,7 @@ public class SmokeBot extends SpringWebhookBot {
             return new SendMessage(update.getMessage().getChatId().toString(),
                     "BotMessageEnum.EXCEPTION_ILLEGAL_MESSAGE.getMessage()");
         } catch (Exception e) {
+            log.error(e.getMessage());
             return new SendMessage(update.getMessage().getChatId().toString(),
                     "BotMessageEnum.EXCEPTION_WHAT_THE_FUCK.getMessage()");
         }
@@ -81,4 +85,6 @@ public class SmokeBot extends SpringWebhookBot {
     public String getBotPath() {
         return null;
     }
+
+
 }

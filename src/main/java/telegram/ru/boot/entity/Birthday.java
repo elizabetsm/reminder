@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 
 @Entity
 @Table(name = "birthdays")
@@ -13,9 +15,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Birthday {
 
-    public Birthday(String name, String birthday) {
-        this.name = name;
+    public Birthday(String name, LocalDate birthday, String chatId) {
         this.birthday = birthday;
+        this.name = name;
+        this.chatId = chatId;
     }
 
     @Id
@@ -27,5 +30,8 @@ public class Birthday {
     private String name;
 
     @Column(name = "birthday", nullable = false)
-    private String birthday;
+    private LocalDate birthday;
+
+    @Column(name = "teleg_name")
+    private String chatId;
 }

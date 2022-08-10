@@ -27,17 +27,19 @@ public class CallbackQueryHandler implements Handler {
 
     @Override
     public BotApiMethod<?> handle(BotApiObject callbackQuery) {
+
         if (callbackQuery instanceof CallbackQuery query) {
             Message msg = query.getMessage();
-            log.info("CallbackQuery received with text {}", msg.getText());
+            log.info("CallbackQuery received with text {} and query data {}", msg.getText(), query.getData());
             SendMessage sendMessage = new SendMessage();
+            sendMessage.setChatId(msg.getChatId().toString());
+
             if (query.getData().equals("y")) {
+                sendMessage.setText("Супер, Др добавлен, напомню тебе о нем за неделю до и в день др\nчто то еще?");
                 sendMessage.setReplyMarkup(replyKeyboard.getKeyboard());
             } else {
-                sendMessage.setText("Тада еще раз\nПж введи дату в формате MM-DD Фамилия и имя\nили имя фамилия\nили имя\n это важно !!!");
+                sendMessage.setText("Тада еще раз\nПж введи дату в формате MM-DD Фамилия и имя\nили имя фамилия\nили имя\nэто важно !!!");
             }
-            sendMessage.setChatId(msg.getChatId().toString());
-//            sendMessage.setText(query.getData());
 
             return sendMessage;
         }
