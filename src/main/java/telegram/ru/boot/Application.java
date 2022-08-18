@@ -24,8 +24,4 @@ public class Application {
         log.info("Bot started!!!");
     }
 
-//    @Scheduled(cron = "@daily")
-//    public void checkDayNotifs(){
-//        service.sendNotif();
-//    }
 }

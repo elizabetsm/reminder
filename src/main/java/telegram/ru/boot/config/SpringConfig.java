@@ -13,6 +13,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import telegram.ru.boot.bot.SmokeBot;
 import telegram.ru.boot.handler.CallbackQueryHandler;
 import telegram.ru.boot.handler.MessageHandler;
+import telegram.ru.boot.service.ScheduledService;
 
 
 @Configuration
@@ -27,6 +28,12 @@ public class SpringConfig {
     @Value("${telegram.bot.webhook}")
     String webhook;
 
+    final ScheduledService service;
+
+    public SpringConfig(ScheduledService service) {
+        this.service = service;
+    }
+
     @Bean
     public SetWebhook setWebhookInstance() {
         return SetWebhook.builder().url(webhook).build();
@@ -38,7 +45,7 @@ public class SpringConfig {
                                      MessageHandler messageHandler,
                                      CallbackQueryHandler callbackQueryHandler) {
         SmokeBot bot = new SmokeBot(setWebhook,
-                webhook, token, name, messageHandler, callbackQueryHandler);
+                webhook, token, name, messageHandler, callbackQueryHandler, service);
 
         TelegramBotsApi api = new TelegramBotsApi(DefaultBotSession.class);
         api.registerBot(bot, setWebhook);

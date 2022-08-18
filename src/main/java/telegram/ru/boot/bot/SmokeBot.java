@@ -12,11 +12,17 @@ import org.telegram.telegrambots.meta.api.methods.updates.SetWebhook;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.starter.SpringWebhookBot;
 import telegram.ru.boot.config.SpringConfig;
+import telegram.ru.boot.entity.Birthday;
 import telegram.ru.boot.handler.CallbackQueryHandler;
 import telegram.ru.boot.handler.Handler;
 import telegram.ru.boot.handler.MessageHandler;
+import telegram.ru.boot.service.ScheduledService;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * класс для использования в {@link SpringConfig#springWebhookBot(SetWebhook, MessageHandler, CallbackQueryHandler)}
@@ -32,17 +38,21 @@ public class SmokeBot extends SpringWebhookBot {
     String name;
 
     // два некоторых обработчика
-    Handler messageHandler; //собщение словами (текстом, буквами некими)
-    Handler callbackQueryHandler;//инлайн клава
+    final Handler messageHandler; //собщение словами (текстом, буквами некими)
+    final Handler callbackQueryHandler;//инлайн клава
+    final ScheduledService service;
+
+
 
     public SmokeBot(SetWebhook setWebhook, String webhook, String token, String name, MessageHandler messageHandler,
-                    CallbackQueryHandler callbackQueryHandler) {
+                    CallbackQueryHandler callbackQueryHandler, ScheduledService service) {
         super(setWebhook);
         this.webhook = webhook;
         this.token = token;
         this.name = name;
         this.messageHandler = messageHandler;
         this.callbackQueryHandler = callbackQueryHandler;
+        this.service = service;
     }
 
     public String getBotUsername() {
@@ -86,5 +96,15 @@ public class SmokeBot extends SpringWebhookBot {
         return null;
     }
 
-
+    @Scheduled(cron = "@daily")
+    public void checkDayNotifs(){
+        Map<Integer, Birthday> birthdayList = service.findDailyNotifs();
+        if (!birthdayList.isEmpty()){
+            try {
+                execute(service.sendNotif(birthdayList));
+            } catch (TelegramApiException e) {
+                log.error("checkDayNotifs", e.getMessage());
+            }
+        }
+    }
 }
