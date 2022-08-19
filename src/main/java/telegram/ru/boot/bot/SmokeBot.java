@@ -98,13 +98,19 @@ public class SmokeBot extends SpringWebhookBot {
 
     @Scheduled(cron = "@daily")
     public void checkDayNotifs(){
-        Map<Integer, Birthday> birthdayList = service.findDailyNotifs();
-        if (!birthdayList.isEmpty()){
-            try {
-                execute(service.sendNotif(birthdayList));
-            } catch (TelegramApiException e) {
-                log.error("checkDayNotifs", e.getMessage());
-            }
+        Map<Long, List<Birthday>> birthdayMap = service.findDailyNotifs();
+        if (!birthdayMap.isEmpty()){
+                birthdayMap.forEach((id, birthday) -> {
+                    SendMessage sendMessage = new SendMessage();
+                    sendMessage.setChatId(id.toString());
+                    sendMessage.setText("Список на сегодня" + birthday);
+                    try {
+                        execute(sendMessage);
+                    } catch (TelegramApiException e) {
+                        log.error("checkDayNotifs", e.getMessage());
+                    }
+                });
+//                execute(service.sendNotif(birthdayMap));
         }
     }
 }

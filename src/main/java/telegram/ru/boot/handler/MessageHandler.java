@@ -52,12 +52,12 @@ public class MessageHandler implements Handler {
                 sendMessage.setText(msg.getChat().getFirstName() +" , привет!!\nПожалуйста, тыкни на кнопку и скажи боту, что ты бы хотела сделать");
                 sendMessage.setReplyMarkup(replyKeyboard.getKeyboard());
             } else if (msg.getText().equals("Добавить день рождения")){
-                sendMessage.setText("Пж введи дату в формате MM-DD Фамилия и имя\nили имя фамилия\nили имя\nэто важно !!!");
+                sendMessage.setText("Пж введи дату в формате MM-DD имя\nэто важно (я пока не придумала другой валидации)!!!");
                 sendMessage.setReplyMarkup(new ReplyKeyboardRemove(true));
             } else if (msg.getText().equals("Показать все дени рождения")){
                 String res = repository.findAll().stream()
                         .map(n -> {
-                            //TODO разобраться че куда , точно ли здесь е стринга нужна
+                            //TODO разобраться че куда , точно ли здесь стринга нужна
                             LocalDate bday = n.getBirthday();
                             String name = n.getName();
                             return bday + " " + name;

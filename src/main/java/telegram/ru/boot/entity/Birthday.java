@@ -1,6 +1,8 @@
 package telegram.ru.boot.entity;
 
 import javax.persistence.*;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +15,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Birthday {
 
     public Birthday(String name, LocalDate birthday, String chatId) {
@@ -24,7 +27,7 @@ public class Birthday {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @Column(name = "name", nullable = false)
     private String name;
